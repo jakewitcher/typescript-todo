@@ -27186,17 +27186,58 @@ Object.defineProperty(exports, "__esModule", {
 var utils_1 = require("./utils"); // state
 
 
-var todos = []; // elements
+var hasStorage = localStorage.getItem('todos');
+var todos = hasStorage ? JSON.parse(hasStorage) : []; // elements
 
 var submitButton = document.getElementById('submit');
-var inputField = document.getElementById('todo'); // submit new todo
+var inputField = document.getElementById('todo');
+var todoList = document.getElementById('todos'); // initialize app
+
+function initialize(todos) {
+  if (todos.length > 0) {
+    todos.forEach(function (todo) {
+      renderNewTodo(todo);
+    });
+  }
+}
+
+initialize(todos); // create remove button
+
+function createDeleteButton(todoEle) {
+  var id = todoEle.id;
+  var button = document.createElement('button');
+  button.textContent = 'remove';
+  button.addEventListener('click', function () {
+    todos = utils_1.deleteTodo(todos, id);
+    setStorage(todos);
+    todoEle.parentNode.removeChild(todoEle);
+  });
+  todoEle.appendChild(button);
+} // render new todo
+
+
+function renderNewTodo(todo) {
+  var ele = document.createElement('li');
+  ele.textContent = todo.text;
+  ele.id = todo.id;
+  createDeleteButton(ele);
+  todoList.appendChild(ele);
+} // submit new todo
+
 
 submitButton.addEventListener('click', function (e) {
   e.preventDefault();
   var todo = inputField.value;
   todos = utils_1.createTodo(todos, todo);
-  console.log(todos);
-});
+  setStorage(todos);
+  var newTodo = todos[todos.length - 1];
+  renderNewTodo(newTodo);
+  inputField.value = '';
+}); // set local storage
+
+function setStorage(todos) {
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
 },{"./utils":"utils.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -27224,7 +27265,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50206" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64838" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
