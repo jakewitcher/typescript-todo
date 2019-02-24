@@ -18,11 +18,17 @@
         </header>
         <div class="todo-body">
           <ul id="todos"></ul>
-          <form>
-            <label for="todo">
-              <input type="text" id="todo" name="todo" placeholder="enter a new todo">
+          <form class="form" id="new-form">
+            <label for="todo-new">
+              <input type="text" id="todo-new" name="todo-new" placeholder="enter a new todo">
             </label>
-            <button type="submit" id="submit">create new</button>
+            <button type="submit" id="new">create new</button>
+          </form>
+          <form class="form--hide" id="edit-form">
+            <label for="todo-edit">
+              <input type="text" id="todo-edit" name="todo-edit" placeholder="edit todo">
+            </label>
+            <button type="submit" id="edit">edit</button>
           </form>
         </div>
       </div>

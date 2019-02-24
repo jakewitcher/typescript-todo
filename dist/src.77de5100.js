@@ -27133,10 +27133,10 @@ function createTodo(todos, text) {
 
 exports.createTodo = createTodo;
 
-function editTodo(todos, id, edits) {
+function editTodo(todos, id, edit) {
   return todos.map(function (todo) {
     if (todo.id === id) {
-      todo.text = edits;
+      todo.text = edit;
       todo.date = moment();
       return todo;
     }
@@ -27166,15 +27166,18 @@ var utils_1 = require("./utils"); // state
 
 
 var hasStorage = localStorage.getItem('todos');
-var todos = hasStorage ? JSON.parse(hasStorage) : []; // elements
+var todos = hasStorage ? JSON.parse(hasStorage) : [];
+var todoId = ''; // elements
 
-var submitButton = document.getElementById('submit');
-var inputField = document.getElementById('todo');
+var newButton = document.getElementById('new');
+var editButton = document.getElementById('edit');
+var newField = document.getElementById('todo-new');
+var editField = document.getElementById('todo-edit');
+var newForm = document.getElementById('new-form');
+var editForm = document.getElementById('edit-form');
 var todoList = document.getElementById('todos'); // initialize app
 
 function initialize(todos) {
-  setNewTodoButton();
-
   if (todos.length > 0) {
     renderTodos(todos);
   }
@@ -27201,23 +27204,13 @@ function createDeleteButton(todoEle) {
 
 
 function createEditButton(todoEle, todo) {
-  var id = todoEle.id;
   var button = document.createElement('button');
   button.textContent = 'edit';
   button.addEventListener('click', function () {
-    inputField.value = todo.text;
-    submitButton.textContent = 'edit';
-    submitButton.addEventListener('click', function () {
-      var edits = inputField.value;
-      console.log(todos);
-      todos = utils_1.editTodo(todos, id, edits);
-      console.log(todos);
-      setStorage(todos);
-      renderTodos(todos);
-      inputField.value = '';
-      submitButton.textContent = 'create new';
-      setNewTodoButton();
-    });
+    editField.value = todo.text;
+    todoId = todo.id;
+    newForm.className = 'form--hide';
+    editForm.className = 'form';
   });
   todoEle.appendChild(button);
 } // render todos
@@ -27236,16 +27229,27 @@ function renderTodos(todos) {
 } // submit new todo
 
 
-function setNewTodoButton() {
-  submitButton.addEventListener('click', function (e) {
-    e.preventDefault();
-    var todo = inputField.value;
-    todos = utils_1.createTodo(todos, todo);
-    setStorage(todos);
-    renderTodos(todos);
-    inputField.value = '';
-  });
-}
+newButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  var todo = newField.value;
+  todos = utils_1.createTodo(todos, todo);
+  setStorage(todos);
+  renderTodos(todos);
+  newField.value = '';
+}); // edit existing todo
+
+editButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  var edit = editField.value;
+  console.log(edit);
+  todos = utils_1.editTodo(todos, todoId, edit);
+  setStorage(todos);
+  renderTodos(todos);
+  todoId = '';
+  editField.value = '';
+  newForm.className = 'form';
+  editForm.className = 'form--hide';
+});
 },{"./utils":"utils.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -27273,7 +27277,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51427" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53669" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

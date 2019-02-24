@@ -17,10 +17,10 @@ function createTodo(todos: Todo[], text: string) {
   return [...todos, newTodo];
 }
 
-function editTodo(todos: Todo[], id: string, edits: string) {
+function editTodo(todos: Todo[], id: string, edit: string) {
   return todos.map(todo => {
     if (todo.id === id) {
-      todo.text = edits;
+      todo.text = edit;
       todo.date = moment();
       return todo;
     }

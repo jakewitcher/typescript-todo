@@ -3,15 +3,19 @@ import { createTodo, editTodo, deleteTodo, Todo } from './utils';
 // state
 const hasStorage = localStorage.getItem('todos');
 let todos: Todo[] = hasStorage ? JSON.parse(hasStorage) : [];
+let todoId: string = '';
 
 // elements
-const submitButton = document.getElementById('submit');
-const inputField = document.getElementById('todo');
+const newButton = document.getElementById('new');
+const editButton = document.getElementById('edit');
+const newField = document.getElementById('todo-new');
+const editField = document.getElementById('todo-edit');
+const newForm = document.getElementById('new-form');
+const editForm = document.getElementById('edit-form');
 const todoList = document.getElementById('todos');
 
 // initialize app
 function initialize(todos: Todo[]) {
-  setNewTodoButton();
   if (todos.length > 0) {
     renderTodos(todos);
   }
@@ -39,23 +43,13 @@ function createDeleteButton(todoEle: HTMLElement) {
 
 // create edit button
 function createEditButton(todoEle: HTMLElement, todo: Todo) {
-  const id = todoEle.id;
   const button = document.createElement('button');
   button.textContent = 'edit';
   button.addEventListener('click', () => {
-    (inputField as HTMLInputElement).value = todo.text;
-    (submitButton as HTMLButtonElement).textContent = 'edit';
-    (submitButton as HTMLButtonElement).addEventListener('click', () => {
-      const edits = (inputField as HTMLInputElement).value;
-      console.log(todos);
-      todos = editTodo(todos, id, edits);
-      console.log(todos);
-      setStorage(todos);
-      renderTodos(todos);
-      (inputField as HTMLInputElement).value = '';
-      (submitButton as HTMLButtonElement).textContent = 'create new';
-      setNewTodoButton();
-    });
+    (editField as HTMLInputElement).value = todo.text;
+    todoId = todo.id;
+    (newForm as HTMLElement).className = 'form--hide';
+    (editForm as HTMLElement).className = 'form';
   });
   (todoEle as HTMLElement).appendChild(button);
 }
@@ -74,13 +68,25 @@ function renderTodos(todos: Todo[]) {
 }
 
 // submit new todo
-function setNewTodoButton() {
-  (submitButton as HTMLElement).addEventListener('click', e => {
-    e.preventDefault();
-    const todo = (inputField as HTMLInputElement).value;
-    todos = createTodo(todos, todo);
-    setStorage(todos);
-    renderTodos(todos);
-    (inputField as HTMLInputElement).value = '';
-  });
-}
+(newButton as HTMLElement).addEventListener('click', e => {
+  e.preventDefault();
+  const todo = (newField as HTMLInputElement).value;
+  todos = createTodo(todos, todo);
+  setStorage(todos);
+  renderTodos(todos);
+  (newField as HTMLInputElement).value = '';
+});
+
+// edit existing todo
+(editButton as HTMLElement).addEventListener('click', e => {
+  e.preventDefault();
+  const edit = (editField as HTMLInputElement).value;
+  console.log(edit);
+  todos = editTodo(todos, todoId, edit);
+  setStorage(todos);
+  renderTodos(todos);
+  todoId = '';
+  (editField as HTMLInputElement).value = '';
+  (newForm as HTMLElement).className = 'form';
+  (editForm as HTMLElement).className = 'form--hide';
+});
