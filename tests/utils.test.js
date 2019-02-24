@@ -28,9 +28,11 @@ index_1.it('should create a new todo', function () {
     index_1.expect(createTest[3].text).toBe(newTodo);
 });
 index_1.it('should edit a todo', function () {
+    console.log(todos);
     var editTest = utils_1.editTodo(todos, '123abc', edits);
     index_1.expect(editTest.length).toBe(3);
-    index_1.expect(editTest[2].text).toBe(edits);
+    index_1.expect(editTest[0].text).toBe(edits);
+    console.log(todos);
 });
 index_1.it('should delete a todo', function () {
     var deleteTest = utils_1.deleteTodo(todos, '456def');

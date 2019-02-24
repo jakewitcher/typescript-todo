@@ -31,7 +31,7 @@ it('should create a new todo', () => {
 it('should edit a todo', () => {
   const editTest = editTodo(todos, '123abc', edits);
   expect(editTest.length).toBe(3);
-  expect(editTest[2].text).toBe(edits);
+  expect(editTest[0].text).toBe(edits);
 });
 
 it('should delete a todo', () => {

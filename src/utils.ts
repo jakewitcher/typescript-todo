@@ -18,15 +18,14 @@ function createTodo(todos: Todo[], text: string) {
 }
 
 function editTodo(todos: Todo[], id: string, edits: string) {
-  const todo = todos.filter(todo => todo.id === id)[0];
-  const date = moment();
-  const updatedTodo = {
-    ...todo,
-    date,
-    text: edits,
-  };
-  const updatedTodos = [...todos.filter(todo => todo.id !== id), updatedTodo];
-  return updatedTodos;
+  return todos.map(todo => {
+    if (todo.id === id) {
+      todo.text = edits;
+      todo.date = moment();
+      return todo;
+    }
+    return todo;
+  });
 }
 
 function deleteTodo(todos: Todo[], id: string) {

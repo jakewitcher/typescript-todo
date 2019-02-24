@@ -27113,22 +27113,6 @@ var global = arguments[3];
 },{}],"utils.ts":[function(require,module,exports) {
 "use strict";
 
-var __assign = this && this.__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
-};
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -27150,20 +27134,15 @@ function createTodo(todos, text) {
 exports.createTodo = createTodo;
 
 function editTodo(todos, id, edits) {
-  var todo = todos.filter(function (todo) {
-    return todo.id === id;
-  })[0];
-  var date = moment();
+  return todos.map(function (todo) {
+    if (todo.id === id) {
+      todo.text = edits;
+      todo.date = moment();
+      return todo;
+    }
 
-  var updatedTodo = __assign({}, todo, {
-    date: date,
-    text: edits
+    return todo;
   });
-
-  var updatedTodos = todos.filter(function (todo) {
-    return todo.id !== id;
-  }).concat([updatedTodo]);
-  return updatedTodos;
 }
 
 exports.editTodo = editTodo;
@@ -27194,14 +27173,19 @@ var inputField = document.getElementById('todo');
 var todoList = document.getElementById('todos'); // initialize app
 
 function initialize(todos) {
+  setNewTodoButton();
+
   if (todos.length > 0) {
-    todos.forEach(function (todo) {
-      renderNewTodo(todo);
-    });
+    renderTodos(todos);
   }
 }
 
-initialize(todos); // create remove button
+initialize(todos); // set local storage
+
+function setStorage(todos) {
+  localStorage.setItem('todos', JSON.stringify(todos));
+} // create remove button
+
 
 function createDeleteButton(todoEle) {
   var id = todoEle.id;
@@ -27210,33 +27194,57 @@ function createDeleteButton(todoEle) {
   button.addEventListener('click', function () {
     todos = utils_1.deleteTodo(todos, id);
     setStorage(todos);
-    todoEle.parentNode.removeChild(todoEle);
+    renderTodos(todos);
   });
   todoEle.appendChild(button);
-} // render new todo
+} // create edit button
 
 
-function renderNewTodo(todo) {
-  var ele = document.createElement('li');
-  ele.textContent = todo.text;
-  ele.id = todo.id;
-  createDeleteButton(ele);
-  todoList.appendChild(ele);
+function createEditButton(todoEle, todo) {
+  var id = todoEle.id;
+  var button = document.createElement('button');
+  button.textContent = 'edit';
+  button.addEventListener('click', function () {
+    inputField.value = todo.text;
+    submitButton.textContent = 'edit';
+    submitButton.addEventListener('click', function () {
+      var edits = inputField.value;
+      console.log(todos);
+      todos = utils_1.editTodo(todos, id, edits);
+      console.log(todos);
+      setStorage(todos);
+      renderTodos(todos);
+      inputField.value = '';
+      submitButton.textContent = 'create new';
+      setNewTodoButton();
+    });
+  });
+  todoEle.appendChild(button);
+} // render todos
+
+
+function renderTodos(todos) {
+  todoList.innerHTML = '';
+  todos.forEach(function (todo) {
+    var ele = document.createElement('li');
+    ele.textContent = todo.text;
+    ele.id = todo.id;
+    createEditButton(ele, todo);
+    createDeleteButton(ele);
+    todoList.appendChild(ele);
+  });
 } // submit new todo
 
 
-submitButton.addEventListener('click', function (e) {
-  e.preventDefault();
-  var todo = inputField.value;
-  todos = utils_1.createTodo(todos, todo);
-  setStorage(todos);
-  var newTodo = todos[todos.length - 1];
-  renderNewTodo(newTodo);
-  inputField.value = '';
-}); // set local storage
-
-function setStorage(todos) {
-  localStorage.setItem('todos', JSON.stringify(todos));
+function setNewTodoButton() {
+  submitButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    var todo = inputField.value;
+    todos = utils_1.createTodo(todos, todo);
+    setStorage(todos);
+    renderTodos(todos);
+    inputField.value = '';
+  });
 }
 },{"./utils":"utils.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -27265,7 +27273,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64838" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51427" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
