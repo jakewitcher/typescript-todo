@@ -39,17 +39,17 @@ ul {
 
 .todos__title {
   background-color: hsl(170, 62%, 85%);
-  border-bottom: 4px solid hsl(170, 62%, 30%);
-  border-left: 3px solid hsl(170, 62%, 70%);
-  border-right: 4px solid hsl(170, 62%, 45%);
-  border-top: 2px solid hsl(170, 62%, 65%);
+  border-top: 4px solid hsl(170, 62%, 30%);
+  border-right: 3px solid hsl(170, 62%, 70%);
+  border-left: 4px solid hsl(170, 62%, 45%);
+  border-bottom: 2px solid hsl(170, 62%, 65%);
   border-radius: 5px;
   color: hsl(170, 62%, 30%);
   font-family: 'Orbitron', sans-serif;
   font-size: 54px;
   font-weight: bold;
   margin: 0;
-  padding: 4px 96px;
+  padding: 4px 136px;
 }
 
 .todo {
