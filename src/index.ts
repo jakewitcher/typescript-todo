@@ -29,29 +29,31 @@ function setStorage(todos: Todo[]) {
 }
 
 // create remove button
-function createDeleteButton(todoEle: HTMLElement) {
-  const id = todoEle.id;
+function createDeleteButton(div: HTMLElement, todo: Todo) {
+  const id = todo.id;
   const button = document.createElement('button');
-  button.textContent = 'remove';
+  button.className = 'button button--remove';
+  button.innerHTML = '<i class="fas fa-trash-alt"/>';
   button.addEventListener('click', () => {
     todos = deleteTodo(todos, id);
     setStorage(todos);
     renderTodos(todos);
   });
-  (todoEle as HTMLElement).appendChild(button);
+  (div as HTMLElement).appendChild(button);
 }
 
 // create edit button
-function createEditButton(todoEle: HTMLElement, todo: Todo) {
+function createEditButton(div: HTMLElement, todo: Todo) {
   const button = document.createElement('button');
-  button.textContent = 'edit';
+  button.className = 'button button--edit';
+  button.innerHTML = '<i class="fas fa-edit"/>';
   button.addEventListener('click', () => {
     (editField as HTMLInputElement).value = todo.text;
     todoId = todo.id;
     (newForm as HTMLElement).className = 'form--hide';
     (editForm as HTMLElement).className = 'form';
   });
-  (todoEle as HTMLElement).appendChild(button);
+  (div as HTMLElement).appendChild(button);
 }
 
 // render todos
@@ -59,10 +61,13 @@ function renderTodos(todos: Todo[]) {
   (todoList as HTMLElement).innerHTML = '';
   todos.forEach(todo => {
     const ele = document.createElement('li');
+    const buttonDiv = document.createElement('div');
+    ele.className = 'todo';
     ele.textContent = todo.text;
     ele.id = todo.id;
-    createEditButton(ele, todo);
-    createDeleteButton(ele);
+    createEditButton(buttonDiv, todo);
+    createDeleteButton(buttonDiv, todo);
+    (ele as HTMLElement).appendChild(buttonDiv);
     (todoList as HTMLElement).appendChild(ele);
   });
 }

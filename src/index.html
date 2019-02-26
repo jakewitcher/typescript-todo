@@ -6,39 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" type="text/css" href="./index.css" />
-
+    <link
+      href="https://fonts.googleapis.com/css?family=Orbitron:400,700"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
     <title>TS Todo</title>
   </head>
 
   <body>
     <div class="container">
-      <div>
-        <header>
-          <h1>TS Todo</h1>
+      <div class="todos">
+        <header class="todos__header">
+          <h1 class="todos__title">TS To-do</h1>
         </header>
         <div class="todo-body">
           <ul id="todos"></ul>
           <form class="form" id="new-form">
             <label for="todo-new">
               <input
+                class="input-field"
                 type="text"
                 id="todo-new"
                 name="todo-new"
                 placeholder="enter a new todo"
               />
             </label>
-            <button type="submit" id="new">create new</button>
+            <button class="button button--submit" type="submit" id="new">
+              create
+            </button>
           </form>
           <form class="form--hide" id="edit-form">
             <label for="todo-edit">
               <input
+                class="input-field"
                 type="text"
                 id="todo-edit"
                 name="todo-edit"
                 placeholder="edit todo"
               />
             </label>
-            <button type="submit" id="edit">edit</button>
+            <button class="button button--submit" type="submit" id="edit">
+              edit
+            </button>
           </form>
         </div>
       </div>

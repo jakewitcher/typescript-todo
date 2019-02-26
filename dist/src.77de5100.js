@@ -27190,29 +27190,31 @@ function setStorage(todos) {
 } // create remove button
 
 
-function createDeleteButton(todoEle) {
-  var id = todoEle.id;
+function createDeleteButton(div, todo) {
+  var id = todo.id;
   var button = document.createElement('button');
-  button.textContent = 'remove';
+  button.className = 'button button--remove';
+  button.innerHTML = '<i class="fas fa-trash-alt"/>';
   button.addEventListener('click', function () {
     todos = utils_1.deleteTodo(todos, id);
     setStorage(todos);
     renderTodos(todos);
   });
-  todoEle.appendChild(button);
+  div.appendChild(button);
 } // create edit button
 
 
-function createEditButton(todoEle, todo) {
+function createEditButton(div, todo) {
   var button = document.createElement('button');
-  button.textContent = 'edit';
+  button.className = 'button button--edit';
+  button.innerHTML = '<i class="fas fa-edit"/>';
   button.addEventListener('click', function () {
     editField.value = todo.text;
     todoId = todo.id;
     newForm.className = 'form--hide';
     editForm.className = 'form';
   });
-  todoEle.appendChild(button);
+  div.appendChild(button);
 } // render todos
 
 
@@ -27220,10 +27222,13 @@ function renderTodos(todos) {
   todoList.innerHTML = '';
   todos.forEach(function (todo) {
     var ele = document.createElement('li');
+    var buttonDiv = document.createElement('div');
+    ele.className = 'todo';
     ele.textContent = todo.text;
     ele.id = todo.id;
-    createEditButton(ele, todo);
-    createDeleteButton(ele);
+    createEditButton(buttonDiv, todo);
+    createDeleteButton(buttonDiv, todo);
+    ele.appendChild(buttonDiv);
     todoList.appendChild(ele);
   });
 } // submit new todo
@@ -27277,7 +27282,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53669" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52225" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

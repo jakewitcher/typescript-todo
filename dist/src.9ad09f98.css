@@ -1,5 +1,11 @@
 body {
-  background: whitesmoke;
+  background: hsl(220, 4%, 30%);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 32px;
 }
 
 .container {
@@ -10,8 +16,135 @@ body {
   width: 100vw;
 }
 
+.todos {
+  background: hsl(0, 0%, 96%);
+  border-bottom: 6px solid hsl(0, 0%, 30%);
+  border-left: 5px solid hsl(0, 0%, 70%);
+  border-right: 6px solid hsl(0, 0%, 45%);
+  border-top: 4px solid hsl(0, 0%, 65%);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px hsla(0, 0%, 0%, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.todos__header {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  margin-bottom: 16px;
+  padding: 0;
+}
+
+.todos__title {
+  background-color: hsl(170, 62%, 85%);
+  border-bottom: 4px solid hsl(170, 62%, 30%);
+  border-left: 3px solid hsl(170, 62%, 70%);
+  border-right: 4px solid hsl(170, 62%, 45%);
+  border-top: 2px solid hsl(170, 62%, 65%);
+  border-radius: 5px;
+  color: hsl(170, 62%, 30%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 54px;
+  font-weight: bold;
+  margin: 0;
+  padding: 4px 96px;
+}
+
+.todo {
+  border-top: 1px solid hsl(0, 0%, 45%);
+  color: hsl(0, 0%, 30%);
+  display: flex;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  justify-content: space-between;
+  padding: 8px 0 24px 0;
+}
+
+.input-field {
+  background: hsl(220, 4%, 23%);
+  border-bottom: 3px solid hsl(0, 0%, 65%);
+  border-left: 2px solid hsl(0, 0%, 45%);
+  border-right: 3px solid hsl(0, 0%, 70%);
+  border-top: 1px solid hsl(0, 0%, 30%);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: hsl(306, 100%, 55%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  margin-right: 4px;
+  padding: 4px 10px;
+}
+
+.button {
+  background: hsl(0, 0%, 98%);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: hsl(220, 4%, 13%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  height: 40px;
+  margin: 0;
+  margin-left: 4px;
+  outline: none;
+  padding: 0;
+  text-decoration: none;
+  width: 120px;
+}
+
+.button--submit {
+  background: hsl(170, 62%, 61%);
+  border-bottom: 4px solid hsl(170, 62%, 30%);
+  border-left: 3px solid hsl(170, 62%, 70%);
+  border-right: 4px solid hsl(170, 62%, 45%);
+  border-top: 2px solid hsl(170, 62%, 65%);
+}
+
+.button--submit:focus,
+.button--submit:hover {
+  background: hsl(170, 62%, 78%);
+}
+
+.button--edit {
+  background: hsl(56, 52%, 61%);
+  border-bottom: 4px solid hsl(56, 52%, 30%);
+  border-left: 3px solid hsl(56, 52%, 70%);
+  border-right: 4px solid hsl(56, 52%, 45%);
+  border-top: 2px solid hsl(56, 52%, 65%);
+  font-size: 16px;
+  width: 40px;
+}
+
+.button--edit:focus,
+.button--edit:hover {
+  background: hsl(56, 52%, 78%);
+}
+
+.button--remove {
+  background: hsl(306, 65%, 67%);
+  border-bottom: 4px solid hsl(306, 65%, 30%);
+  border-left: 3px solid hsl(306, 65%, 75%);
+  border-right: 4px solid hsl(306, 65%, 47%);
+  border-top: 2px solid hsl(306, 65%, 68%);
+  font-size: 16px;
+  margin-left: 8px;
+  width: 40px;
+}
+
+.button--remove:focus,
+.button--remove:hover {
+  background: hsl(306, 65%, 80%);
+}
+
 .form {
-  display: block;
+  align-items: center;
+  display: flex;
+  margin: 0 32px;
+  padding: 0;
 }
 
 .form--hide {
